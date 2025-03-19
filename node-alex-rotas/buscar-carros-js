@@ -13,26 +13,33 @@ app.use(express.urlencoded({ extended: true}));
 let carrosData = fs.readFileSync(carrosPath, 'utf-8');
 let carros = JSON.parse(carrosData);
  
+//função para salvar os dados atualizados no arquivo JSON
 function salvarDados() {
     fs.writeFilesSync(carrosPath, JSON.stringify(carros, null, 2));
 }
- 
+
+//rota para exibir o formulario HTML
 app.get('/adicionar-carro', (req, res) => {
     res.sendFile(path.join(__dirname, 'adicionarcarro.html'));
 });
  
+//rota para processar a requisição POST do formulario 
 app.post('/adicionar-carro', (req, res) => {
     const novoCarro = req.body;
  
+    //verificando se o carro ja existe pelo nome
     if (carros.find(carro => carro.nome.toLowerCase() === novoCarro.nome.toLowerCase())){
         res.send('<h1>Carro já existe. Nâo é possivel adicionar duplicatas.</h1>');
         return;
     }
  
+    //adicionar o novo carro ao array de carros 
     carros.push(novoCarro);
  
+    //salvando os dados atualizados no aqruivo JSON
     salvarDados();
  
+    //enviando uma resposta indicando que o carro foi adicionado
     res.send('<h1>Carro adicionar com suceso!</h1>');
 });
  
