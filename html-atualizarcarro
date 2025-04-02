@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Dados Do Carro</title>
+</head>
+<body>
+        <h1>Atualizar Dados do Carro</h1>
+        <form action="/atualizarcarro.html" method="post">
+            <label for="nome">Nome do Carro</label><br />
+            <input type="text" id="nome" name="nome" required /><br />
+            <label for="novaDescrição">Nova Descrição:</label><br /> 
+            <textarea id="novaDescrição" name="NovaDescrição" required></textarea> 
+            <br />
+            <label for="novaUrlInfo">Nova URL de Informações:</label><br />
+            <input type="url" id="novaUrlInfo" name="novaUrlInfo" required /><br />
+            <label for="novaUrlFoto">Nova Url da Foto:</label><br />
+            <input type="url" id="novaUrlFoto" name="novaUrlFoto" required /><br />
+            <label for="novaUrlVideo">Nova URL do Video:</label><br />
+            <input 
+            type="url"
+            id="novaUrlVideo"
+            name="novaUrlVideo"
+            required
+            /><br /><br />
+            <button type="submit">Atualizar Dados</button>
+        </form>
+</body>
+</html>
