@@ -8,45 +8,49 @@ const port = 3001;
 const carrosPath = path.join(__dirname, 'carros.json');
  
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
  
-//função para salvar os dados atualizados no arquivo JSON
+// Função para salvar os dados atualizados no arquivo JSON
 function salvarDados(carros) {
     fs.writeFileSync(carrosPath, JSON.stringify(carros, null, 2));
 }
  
-//rota para exibir o formulario HTML para atualizar os dados do carro
+// Rota para exibir o formulário HTML para atualizar os dados do carro
 app.get('/atualizar-carro', (req, res) => {
     res.sendFile(path.join(__dirname, 'atualizarcarro.html'));
 });
-//rota para precessar a requisição Post do formulario e atualizar os dados do carro
+ 
+// Rota para processar a requisição POST do formulário e atualizar os dados do carro
 app.post('/atualizar-carro', (req, res) => {
-    const {nome, novaDescricao, novaUrlinfo, novaUrlFoto, novaUrlVideo } = req.body;
-    //lendo os dados do arquivo Json
+    const { nome, novaDescricao, novaUrlInfo, novaUrlFoto, novaUrlVideo } = req.body;
+ 
+    // Lendo os dados do arquivo JSON
     let carrosData = fs.readFileSync(carrosPath, 'utf-8');
     let carros = JSON.parse(carrosData);
-    //procurando o carro pelo nome
-    const carroIndex = carros.findIndex(carro => carro.nome.toLoerCase() === nome.toLoerCase());
-    //verificando se o carro existe
+ 
+    // Procurando o carro pelo nome
+    const carroIndex = carros.findIndex(carro => carro.nome.toLowerCase() === nome.toLowerCase());
+ 
+    // Verificando se o carro existe
     if (carroIndex === -1) {
         res.send('<h1>Carro não encontrado.</h1>');
         return;
     }
  
-    //atualizando os dados do carro
+    // Atualizando os dados do carro
     carros[carroIndex].desc = novaDescricao;
-    carros[carroIndex].url_info = novaUrlinfo;
+    carros[carroIndex].url_info = novaUrlInfo;
     carros[carroIndex].url_foto = novaUrlFoto;
     carros[carroIndex].url_video = novaUrlVideo;
  
-    //salvando os dados atualizados no arquivo JSON
+    // Salvando os dados atualizados no arquivo JSON
     salvarDados(carros);
  
-    //enviando uma resposta indicando que os dados foram atualizados com sucesso
+    // Enviando uma resposta indicando que os dados foram atualizados com sucesso
     res.send('<h1>Dados do carro atualizados com sucesso!</h1>');
 });
  
-    //iniciar o servidor e escutar na porta especificada
-    app.listen(port, () => {
-        console.log(`Servidor iniciado em http://localhost:${port}`);
-    });
+// Iniciar o servidor e escutar na porta especificada
+app.listen(port, () => {
+    console.log(`Servidor iniciado em http://localhost:${port}`);
+});
