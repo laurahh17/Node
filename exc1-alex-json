@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "leite",
+    "preco": "150000",
+    "quantidade": "10"
+  },
+  {
+    "nome": "cafe",
+    "preco": "R$: 10,00",
+    "quantidade": 7
+  },
+  {
+    "nome": "arroz",
+    "preco": "R$: 16,00",
+    "quantidade": 15
+  },
+  {
+    "nome": "feijao",
+    "preco": "R$: 9,00",
+    "quantidade": 3
+  }
+]
