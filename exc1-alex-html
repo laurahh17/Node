@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Dados Do Carro</title>
+</head>
+<body>
+        <h1>Atualizar Produtos</h1>
+        <form action="/atualizar-produtos" method="post">
+            <label for="nome">Nome do Produto</label><br/>
+            <input type="text" id="nome" name="nome" required /><br/>
+
+            <label for="number">Preço do Produto</label><br>
+            <input type="text" id="novoPreco" name="novoPreco" required /> <br>
+            <label for="number">Quantidade do Produto</label><br> 
+            
+            <input type="text" id="novaQtde" name="novaQtde" required /> <br>
+     
+            
+           <br>
+            <button type="submit">Atualizar Produto</button>
+        </form>
+</body>
+</html>
