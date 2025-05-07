@@ -1,0 +1,48 @@
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+
+const app = express();
+const port = 3001;
+
+const produtosPath = path.join(__dirname, 'produtos.json');
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+
+function salvarDados(produtos){
+    fs.writeFileSync(produtosPath, JSON.stringify(produtos, null, 2));
+}
+
+app.get('/atualizar-produtos', (req, res) => {
+    res.sendFile(path.join(__dirname, 'atualizar-produtos.html'));
+});
+
+app.post('/atualizar-produtos', (req, res) => {
+    const {nome, novoPreco, novaQtde} = req.body;
+
+    let produtosData = fs.readFileSync(produtosPath, 'utf-8');
+  
+    let produtos = JSON.parse(produtosData);
+
+    const produtosIndex = produtos.findIndex(produtos => produtos.nome.toLowerCase() === nome.toLowerCase());
+    
+
+    if(produtosIndex == -1){
+        res.send('<h1>Produto não encontrado.</h1>');
+        return;
+    }
+
+    produtos[produtosIndex].preco = novoPreco;
+    produtos[produtosIndex].quantidade = novaQtde;
+
+    salvarDados(produtos);
+
+    res.send('<h1> Dados do produto atualizados com sucesso</h1>');
+});
+
+app.listen(port,() => {
+    console.log(`Servidor iniciado em http://localhost:${port}`);
+
+});
