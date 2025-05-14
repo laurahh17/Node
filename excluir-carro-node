@@ -3,24 +3,24 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 const carrosPath = path.join(__dirname, 'carros.json');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 //função para salvar os dados atualizados do arquivo JSON
 function salvarDados(carros) {
     fs.writeFileSync(carrosPath, JSON.stringify(carros, null, 2));
 }
 
-//rota para exibir o dormulario HTML ara excluir um carro
+//rota para exibir o dormulario HTML para excluir um carro
 app.get('/excluir-carro', (req, res) => {
     res.sendFile(path.join(__dirname, 'excluircarro.html'));
 });
 
-//rota para processar a ewquisição do POST  e excluir o carro
+//rota para processar a requisição do POST e excluir o carro
 app.post('/excluir-carro', (req, res) =>{
     const { nome } = req.body;
 
