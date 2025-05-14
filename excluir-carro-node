@@ -41,7 +41,7 @@ app.post('/excluir-carro', (req, res) => {
     res.send(`
     <script>
     if (confirm('Tem certeza de que deseja excluir o carro ${nome}?')){
-        window.location.href = '/excluir-carro-confirmado?nome=${nome}';
+        window.location.href = '/excluir-carro-confirmado?nomeCarro=${nome}';
     } else {
         window.location.href = '/excluir-carro' ;
     }
@@ -51,7 +51,7 @@ app.post('/excluir-carro', (req, res) => {
  
 //rota para confirmar a exclusão do carros após a confirmação do usuario
 app.get('/excluir-carro-confirmado', (req, res) => {
-    const nome = req.query.nome;
+    const nome = req.query.nomeCarro;
  
     //lendo os dados do arqivo JSON
     let carrosData = fs.readFileSync(carrosPath, 'utf-8');
@@ -61,7 +61,7 @@ app.get('/excluir-carro-confirmado', (req, res) => {
     const carroIndex = carros.findIndex(carro => carro.nome.toLowerCase() === nome.toLowerCase());
  
     //removendo o carro do array de carros
-    carros.splice(carroIndex, 1);
+    carros.splice(carroIndex, 1); //splice abre um vetor no indice escolhido e tira jogando todos para cima ex: tem 4 carros e exclui o numero 2. o carro 3 e 4 vao vira o 2 e o 3
  
     //salvando os dados atualizados no arquivo JSON
     salvarDados(carros);
